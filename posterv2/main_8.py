@@ -20,7 +20,7 @@ import numpy as np
 import datetime
 from torchsampler import ImbalancedDatasetSampler
 
-from models.PosterV2_8cls import *
+from .models.PosterV2_8cls import *
 
 now = datetime.datetime.now()
 time_str = now.strftime("[%m-%d]-[%H-%M]-")
