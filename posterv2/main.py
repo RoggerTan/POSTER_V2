@@ -1,7 +1,7 @@
 import shutil
 import warnings
 from sklearn import metrics
-from sklearn.metrics import confusion_matrix, plot_confusion_matrix
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
 warnings.filterwarnings("ignore")
 import torch.utils.data as data
 import os
@@ -410,38 +410,20 @@ class RecorderMeter1(object):
         y_true = self.y_true
         y_pred = self.y_pred
 
-        plt.title(title)
-        plt.colorbar()
-        xlocations = np.array(range(len(labels)))
-        plt.xticks(xlocations, labels, rotation=90)
-        plt.yticks(xlocations, labels)
-        plt.ylabel('True label')
-        plt.xlabel('Predicted label')
-
         cm = confusion_matrix(y_true, y_pred)
-        np.set_printoptions(precision=2)
         cm_normalized = cm.astype('float') / cm.sum(axis=1)[:, np.newaxis]
-        plt.figure(figsize=(12, 8), dpi=120)
 
-        ind_array = np.arange(len(labels))
-        x, y = np.meshgrid(ind_array, ind_array)
-        for x_val, y_val in zip(x.flatten(), y.flatten()):
-            c = cm_normalized[y_val][x_val]
-            if c > 0.01:
-                plt.text(x_val, y_val, "%0.2f" % (c,), color='red', fontsize=7, va='center', ha='center')
-        # offset the tick
-        tick_marks = np.arange(len(7))
-        plt.gca().set_xticks(tick_marks, minor=True)
-        plt.gca().set_yticks(tick_marks, minor=True)
-        plt.gca().xaxis.set_ticks_position('none')
-        plt.gca().yaxis.set_ticks_position('none')
-        plt.grid(True, which='minor', linestyle='-')
-        plt.gcf().subplots_adjust(bottom=0.15)
+        fig, ax = plt.subplots(figsize=(12, 8), dpi=120)
 
-        plot_confusion_matrix(cm_normalized, title='Normalized confusion matrix')
+        # The number of classes can be inferred from the confusion matrix shape
+        display_labels = labels[:cm.shape[0]]
+
+        disp = ConfusionMatrixDisplay(confusion_matrix=cm_normalized, display_labels=display_labels)
+        disp.plot(ax=ax, cmap=cmap, values_format=".2f")
+
+        plt.title('Normalized confusion matrix')
         # show confusion matrix
-        plt.savefig('./log/confusion_matrix.png', format='png')
-        # fig.savefig(save_path, dpi=dpi, bbox_inches='tight')
+        plt.savefig('POSTER++/outputs/confusion_matrix.png', format='png')
         print('Saved figure')
         plt.show()
 
