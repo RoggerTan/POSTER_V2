@@ -22,10 +22,10 @@ from torchsampler import ImbalancedDatasetSampler
 
 from models.PosterV2_8cls import *
 
-warnings.filterwarnings("ignore", category=UserWarning)
-
 now = datetime.datetime.now()
 time_str = now.strftime("[%m-%d]-[%H-%M]-")
+
+warnings.filterwarnings("ignore", category=UserWarning)
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--data', type=str, default=r'/home/Dataset/AffectNet8')

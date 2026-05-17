@@ -21,11 +21,11 @@ import datetime
 from torchsampler import ImbalancedDatasetSampler
 from .models.PosterV2_7cls import *
 
+now = datetime.datetime.now()
+time_str = now.strftime("[%m-%d]-[%H-%M]-")
+
 if __name__ == '__main__':
     warnings.filterwarnings("ignore", category=UserWarning)
-
-    now = datetime.datetime.now()
-    time_str = now.strftime("[%m-%d]-[%H-%M]-")
 
     parser = argparse.ArgumentParser()
     parser.add_argument('--data', type=str, default=r'/home/Dataset/RAF')
