@@ -19,7 +19,7 @@ import torchvision.transforms as transforms
 import numpy as np
 import datetime
 from torchsampler import ImbalancedDatasetSampler
-from models.PosterV2_7cls import *
+from .models.PosterV2_7cls import *
 
 warnings.filterwarnings("ignore", category=UserWarning)
 
