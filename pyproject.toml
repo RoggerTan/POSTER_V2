@@ -1,0 +1,11 @@
+[project]
+name = "posterv2"
+version = "0.0.1"
+dependencies = [
+]
+
+[tool.setuptools]
+packages = { find = {} }
+
+[tool.setuptools.package-data]
+"*" = ["*.*", "**/*"]
