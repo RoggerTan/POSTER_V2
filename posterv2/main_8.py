@@ -150,7 +150,7 @@ def main():
 
         current_learning_rate = optimizer.state_dict()['param_groups'][0]['lr']
         print('Current learning rate: ', current_learning_rate)
-        txt_name = './log/' + time_str + 'log.txt'
+        txt_name = 'POSTER++/outputs/' + time_str + 'log.txt'
         with open(txt_name, 'a') as f:
             f.write('Current learning rate: ' + str(current_learning_rate) + '\n')
 
@@ -166,13 +166,13 @@ def main():
         recorder1.update(output, target)
 
         curve_name = time_str + 'cnn.png'
-        recorder.plot_curve(os.path.join('./log/', curve_name))
+        recorder.plot_curve(os.path.join('POSTER++/outputs/', curve_name))
 
         is_best = val_acc > best_acc
         best_acc = max(val_acc, best_acc)
 
         print('Current best accuracy: ', best_acc.item())
-        txt_name = './log/' + time_str + 'log.txt'
+        txt_name = 'POSTER++/outputs/' + time_str + 'log.txt'
         with open(txt_name, 'a') as f:
             f.write('Current best accuracy: ' + str(best_acc.item()) + '\n')
 
@@ -291,7 +291,7 @@ def validate(val_loader, model, criterion, args):
                 progress.display(i)
 
         print(' **** Accuracy {top1.avg:.3f} *** '.format(top1=top1))
-        with open('./log/' + time_str + 'log.txt', 'a') as f:
+        with open('POSTER++/outputs/' + time_str + 'log.txt', 'a') as f:
             f.write(' * Accuracy {top1.avg:.3f}'.format(top1=top1) + '\n')
 
     print(D)
@@ -340,7 +340,7 @@ class ProgressMeter(object):
         entries += [str(meter) for meter in self.meters]
         print_txt = '\t'.join(entries)
         print(print_txt)
-        txt_name = './log/' + time_str + 'log.txt'
+        txt_name = 'POSTER++/outputs/' + time_str + 'log.txt'
         with open(txt_name, 'a') as f:
             f.write(print_txt + '\n')
 
